@@ -11,7 +11,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello parameters.name !
+- script: echo Hello ${{ parameters.name }} !
   displayName: 'Run a one-line script'
 
 - task: NodeTool@0 
