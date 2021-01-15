@@ -1,3 +1,9 @@
 steps:
-- script: npm install
-- script: npm test
+- script: |
+    npm install
+    npm test
+  displayName: 'npm install and test'
+
+- script:
+    npm run build
+  displayName: 'npm run build'

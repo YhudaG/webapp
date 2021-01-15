@@ -12,10 +12,28 @@ pool:
 
 steps:
 - script: echo Hello ${{ parameters.name }} !
-  displayName: 'Run a one-line script'
+  displayName: 'Print Hello'
 
 - task: NodeTool@0 
   inputs:
     versionSpec: '11.x'
 
 - template: templates/include-npm-steps.yml
+
+- task: Docker@2 # build and push the docker image
+  displayName: Login to Dockerhub
+  inputs:
+    command: login
+    containerRegistry: dockerhub
+- task: Docker@2
+      displayName: 'Build and push the image to container registry'
+      inputs:
+        command: buildAndPush  # default
+        repository: yehudos/yehuda/webapp
+        tag: latest
+
+#- task: AzureWebAppContainer@1 # deploy to azure
+#  inputs:
+#    azureSubscription: '<Azure service connection>'
+#    appName: '<Name of the container web app>'
+#    containers: imageName:latest
